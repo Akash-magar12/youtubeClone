@@ -5,6 +5,7 @@ const VideoSlice = createSlice({
   initialState: {
     value: true,
     query: "",
+    searchResult: [],
   },
   reducers: {
     toggleSubscribe: (state) => {
@@ -16,7 +17,11 @@ const VideoSlice = createSlice({
     videoQuery: (state, action) => {
       state.query = action.payload;
     },
+    videoSearchResult: (state, action) => {
+      state.searchResult = action.payload;
+    },
   },
 });
 export default VideoSlice.reducer;
-export const { toggleSubscribe, videoQuery } = VideoSlice.actions;
+export const { toggleSubscribe, videoQuery, videoSearchResult } =
+  VideoSlice.actions;

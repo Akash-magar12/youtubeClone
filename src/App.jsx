@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import VideoDetails from "./Pages/VideoDetails";
 import Body from "./Pages/Body";
+import Search from "./Pages/Search";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -12,6 +13,7 @@ const App = () => {
       element: <AppLayout />,
       children: [
         { path: "/", element: <Body /> },
+        { path: "/search", element: <Search /> },
         { path: "/watch/:categoryId/:id", element: <VideoDetails /> },
       ],
     },

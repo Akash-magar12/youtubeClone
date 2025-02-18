@@ -9,7 +9,6 @@ import ShimmerCard from "../Components/ShimmerCard";
 const VideoContainer = ({ category }) => {
   const isMenuOpen = useSelector((store) => store.menuToggle.isMenuOpen);
   const [allVideo, setAllVideo] = useState([]);
-  console.log(allVideo);
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
   const fetchVideos = async () => {
     try {
