@@ -10,13 +10,11 @@ const VideoContainer = ({ category }) => {
   const isMenuOpen = useSelector((store) => store.menuToggle.isMenuOpen);
   const [allVideo, setAllVideo] = useState([]);
   console.log(allVideo);
-
+  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
   const fetchVideos = async () => {
     try {
       let response = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${category}&key=${
-          import.meta.env.VITE_YOUTUBE_API_KEY
-        }`
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${category}&key=${API_KEY}`
       );
       setAllVideo(response?.data?.items);
     } catch (error) {

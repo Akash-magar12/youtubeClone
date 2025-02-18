@@ -7,13 +7,12 @@ import { Link } from "react-router-dom";
 
 const Recommended = ({ categoryId }) => {
   const [recommended, setRecommended] = useState([]);
+  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
   const fetchRecommendedVideos = async () => {
     try {
       let response = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${categoryId}&key=${
-          import.meta.env.VITE_YOUTUBE_API_KEY
-        }`
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${categoryId}&key=${API_KEY}`
       );
       setRecommended(response.data.items);
     } catch (error) {

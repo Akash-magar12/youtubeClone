@@ -16,12 +16,12 @@ const VideoDetails = () => {
   const [channel, setChannel] = useState([]);
   const subscribed = useSelector((store) => store.video.value);
   const dispatch = useDispatch();
+  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+
   const fetchDetailVideos = async () => {
     try {
       let response = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${
-          import.meta.env.VITE_YOUTUBE_API_KEY
-        }`
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${API_KEY}`
       );
       setDetailVideo(response.data.items[0]);
       setChannelId(response.data.items[0].snippet.channelId);
@@ -37,9 +37,7 @@ const VideoDetails = () => {
   const fetchChannel = async () => {
     try {
       let response = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&key=${
-          import.meta.env.VITE_YOUTUBE_API_KEY
-        }`
+        `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&key=${API_KEY}`
       );
       setChannel(response.data.items);
     } catch (error) {

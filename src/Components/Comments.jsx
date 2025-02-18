@@ -6,19 +6,18 @@ import { useEffect, useState } from "react";
 
 const Comments = ({ detailVideo }) => {
   const [comments, setComments] = useState([]);
+  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+
   const commentData = async () => {
     try {
       let response = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=50&videoId=${
-          detailVideo?.id
-        }&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`
+        `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=50&videoId=${detailVideo?.id}&key=${API_KEY}`
       );
       setComments(response.data.items);
     } catch (error) {
       console.log(error.message);
     }
   };
- 
 
   useEffect(() => {
     commentData();
@@ -29,7 +28,8 @@ const Comments = ({ detailVideo }) => {
   return (
     <div className="w-full pl-2 md:pl-13  border-[#898989] ">
       <p className="text-[#5A5A5A] border-t  py-3  ">
-        {convertToMillionBillionK(detailVideo?.statistics?.commentCount) || 102} {""}
+        {convertToMillionBillionK(detailVideo?.statistics?.commentCount) || 102}{" "}
+        {""}
         Comments
       </p>
       <div className="flex flex-col gap-5">

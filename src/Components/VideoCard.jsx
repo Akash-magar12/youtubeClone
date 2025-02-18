@@ -9,13 +9,12 @@ const VideoCard = ({ video }) => {
   const { snippet, statistics, contentDetails } = video;
   const [channel, setChannel] = useState([]);
   const { thumbnails, channelTitle, title, publishedAt, channelId } = snippet;
+  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
   const fetchChannel = async () => {
     try {
       let response = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&key=${
-          import.meta.env.VITE_YOUTUBE_API_KEY
-        }`
+        `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&key=${API_KEY}`
       );
       setChannel(response.data.items);
     } catch (error) {
