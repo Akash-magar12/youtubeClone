@@ -35,8 +35,8 @@ const VideoContainer = ({ category }) => {
         isMenuOpen ? "lg:w-[85%] ] " : "w-full"
       } scroll h-full overflow-y-auto  `}
     >
-      <div className="mb-4 w-full">
-        <div className="grid grids w-full">
+      <div className="mb-4 ">
+        <div className="grid grids ">
           {allVideo.length > 0 ? (
             allVideo.map((video) => (
               <Link
@@ -47,8 +47,8 @@ const VideoContainer = ({ category }) => {
               </Link>
             ))
           ) : (
-            <div className="grid grids w-full  ">
-              {Array.from({ length: 2 }).map((_, index) => (
+            <div className="grid grids   ">
+              {Array.from({ length: 10 }).map((_, index) => (
                 <ShimmerCard key={index} />
               ))}
             </div>
