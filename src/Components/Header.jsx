@@ -20,7 +20,7 @@ const Header = () => {
   const suggestSearch = async () => {
     try {
       let response = await axios.get(
-        `http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${query}`
+        `https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=${query}`
       );
       setSuggested(response.data[1]);
     } catch (error) {
