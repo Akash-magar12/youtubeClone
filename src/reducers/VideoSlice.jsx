@@ -20,8 +20,15 @@ const VideoSlice = createSlice({
     videoSearchResult: (state, action) => {
       state.searchResult = action.payload;
     },
+    videoRemoveResult: (state) => {
+      state.searchResult = [];
+    },
   },
 });
 export default VideoSlice.reducer;
-export const { toggleSubscribe, videoQuery, videoSearchResult } =
-  VideoSlice.actions;
+export const {
+  toggleSubscribe,
+  videoQuery,
+  videoSearchResult,
+  videoRemoveResult,
+} = VideoSlice.actions;

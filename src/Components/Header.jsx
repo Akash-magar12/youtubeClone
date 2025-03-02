@@ -6,14 +6,20 @@ import { toggleMenu } from "../reducers/MenuToggleSlice";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Suggestion from "./Suggestion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { videoQuery } from "../reducers/VideoSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [suggested, setSuggested] = useState([]);
   const [showSearch, setShowSearch] = useState(false);
+  const navigate = useNavigate();
   const query = useSelector((store) => store.video.query);
+
+  const handleNavigate = () => {
+    navigate("/search");
+  };
+
   const handleMenu = () => {
     dispatch(toggleMenu());
   };
@@ -34,6 +40,11 @@ const Header = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
+
+  const handleSuggestionClick = (searchText) => {
+    dispatch(videoQuery(searchText));
+    setShowSearch(false);
+  };
   return (
     <nav className="flex w-full shadow-sm py-2 px-8 items-center justify-between">
       {/* Left Section */}
@@ -59,21 +70,26 @@ const Header = () => {
           value={query}
           onChange={(e) => dispatch(videoQuery(e.target.value))}
           onFocus={() => setShowSearch(true)}
-          onBlur={() => setShowSearch(false)}
           className="w-full   text-sm border outline-none py-2 pl-4        pr-10 rounded-full border-zinc-400"
           type="text"
           placeholder="Search"
         />
-        <button className="absolute cursor-pointer text-lg p-2 right-2">
+        <button
+          onClick={handleNavigate}
+          className="absolute cursor-pointer text-lg p-2 right-2"
+        >
           <BsSearch />
         </button>
         {showSearch && suggested.length > 0 && (
           <div className="absolute bg-gray-100 rounded-md z-99   w-full top-[2.4rem]">
-            <Suggestion suggested={suggested} />
+            <Suggestion
+              suggested={suggested}
+              handleSuggestionClick={handleSuggestionClick}
+            />
           </div>
         )}
       </div>
-      <span className="lg:hidden">
+      <span className="md:hidden">
         <BsSearch />
       </span>
 

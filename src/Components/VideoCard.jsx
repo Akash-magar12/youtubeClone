@@ -10,7 +10,6 @@ const VideoCard = ({ video }) => {
   const [channel, setChannel] = useState([]);
   const { thumbnails, channelTitle, title, publishedAt, channelId } = snippet;
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
-
   const fetchChannel = async () => {
     try {
       let response = await axios.get(
