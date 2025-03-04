@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { videoRemoveResult, videoSearchResult } from "../reducers/VideoSlice";
 import SearchCards from "../Components/SearchCards";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
@@ -13,7 +14,7 @@ const Search = () => {
     if (!query) return;
 
     try {
-      let response = await axios.get(
+      const response = await axios.get(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${query}&type=video&key=${API_KEY}`
       );
       dispatch(videoSearchResult(response.data.items));
@@ -23,20 +24,29 @@ const Search = () => {
   };
 
   useEffect(() => {
+    if (!query) {
+      dispatch(videoRemoveResult()); // Clear results when query is empty
+      return;
+    }
+
     const timer = setTimeout(() => {
-      if (query) searchVideos();
+      searchVideos();
     }, 250);
-    return () => {
-      clearTimeout(timer);
-      dispatch(videoRemoveResult());
-    };
+
+    return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
-
   return (
     <>
       {searchResult && searchResult.length > 0 ? (
-        searchResult.map((video, id) => <SearchCards key={id} video={video} />)
+        searchResult.map((video) => (
+          <Link
+            key={video.id.videoId}
+            to={`/watch/${video.snippet.categoryId}/${video.id.videoId}`}
+          >
+            <SearchCards video={video} />
+          </Link>
+        ))
       ) : (
         <p>Loading...</p>
       )}

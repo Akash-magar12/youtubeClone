@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "../Components/Header";
+import SearchMobile from "../Components/SearchMobile";
 
 const AppLayout = () => {
   const location = useLocation();
@@ -11,6 +12,7 @@ const AppLayout = () => {
       } h-screen `}
     >
       <Header />
+      <SearchMobile />
       <Outlet />
     </div>
   );

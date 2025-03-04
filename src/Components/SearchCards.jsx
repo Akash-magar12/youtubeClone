@@ -10,7 +10,6 @@ const SearchCards = ({ video }) => {
   const [channel, setChannel] = useState(null);
   const [videoDetails, setVideoDetails] = useState(null);
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
-
   const { channelId, publishedAt } = snippet;
   const videoId = id?.videoId;
 
@@ -47,7 +46,7 @@ const SearchCards = ({ video }) => {
 
   return (
     <div
-      key={videoId}
+      key={video.id}
       className="max-w-6xl cursor-pointer h-80 mx-auto mt-10 text-black bg-white rounded-lg  overflow-hidden"
     >
       <div className="flex flex-col  md:flex-row">

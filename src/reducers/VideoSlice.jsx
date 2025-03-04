@@ -23,6 +23,9 @@ const VideoSlice = createSlice({
     videoRemoveResult: (state) => {
       state.searchResult = [];
     },
+    emptyQuery: (state) => {
+      state.query = "";
+    },
   },
 });
 export default VideoSlice.reducer;
@@ -31,4 +34,5 @@ export const {
   videoQuery,
   videoSearchResult,
   videoRemoveResult,
+  emptyQuery,
 } = VideoSlice.actions;

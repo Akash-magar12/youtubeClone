@@ -1,30 +1,26 @@
-import { AiOutlineMenu } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
-import avatar from "../assets/avatar.png";
 import { useDispatch, useSelector } from "react-redux";
-import { showSearchBar, toggleMenu } from "../reducers/MenuToggleSlice";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Suggestion from "./Suggestion";
-import { Link, useNavigate } from "react-router-dom";
 import { videoQuery } from "../reducers/VideoSlice";
-
-const Header = () => {
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Suggestion from "./Suggestion";
+import { IoMdClose } from "react-icons/io";
+import { hideSearchBar } from "../reducers/MenuToggleSlice";
+const SearchMobile = () => {
+  const query = useSelector((store) => store.video.query);
   const dispatch = useDispatch();
   const [suggested, setSuggested] = useState([]);
   const [showSearch, setShowSearch] = useState(false);
+  const { search } = useSelector((store) => store.menuToggle);
   const navigate = useNavigate();
-  const query = useSelector((store) => store.video.query);
-
   const handleNavigate = () => {
     if (query) {
       navigate("/search");
+      dispatch(hideSearchBar());
     }
   };
 
-  const handleMenu = () => {
-    dispatch(toggleMenu());
-  };
   const suggestSearch = async () => {
     try {
       let response = await axios.get(
@@ -45,31 +41,26 @@ const Header = () => {
 
   const handleSuggestionClick = (searchText) => {
     setShowSearch(false);
-
+    dispatch(hideSearchBar());
     dispatch(videoQuery(searchText));
     // dispatch(emptyQuery());
   };
-  return (
-    <nav className="flex w-full shadow-sm py-2 px-8 items-center justify-between">
-      {/* Left Section */}
-      <div className="flex items-center gap-4">
-        <button
-          onClick={handleMenu}
-          className="text-xl hidden lg:flex cursor-pointer"
-        >
-          <AiOutlineMenu />
-        </button>
-        <Link to="/">
-          <img
-            className="h-7"
-            src="https://vidtube-sable.vercel.app/assets/logo-koDzNJgp.png"
-            alt="Vidtube Logo"
-          />
-        </Link>
-      </div>
 
-      {/* Search Bar */}
-      <div className="w-[40%] relative hidden md:flex items-center">
+  return (
+    <div
+      className={` w-full fixed md:hidden h-full bg-white px-5 ${
+        search ? "top-[-100%]" : "top-0"
+      }  py-4 z-20 transition-all`}
+    >
+      <div className="relative text-xl mb-4   w-full flex justify-end  right-0 ">
+        <button
+          onClick={() => dispatch(hideSearchBar())}
+          className="border rounded-full p-1"
+        >
+          <IoMdClose />
+        </button>
+      </div>
+      <div className="w-full relative  flex items-center">
         <input
           value={query}
           onChange={(e) => dispatch(videoQuery(e.target.value))}
@@ -93,22 +84,8 @@ const Header = () => {
           </div>
         )}
       </div>
-      <span className="md:hidden" onClick={() => dispatch(showSearchBar())}>
-        <BsSearch />
-      </span>
-
-      {/* Right Section (Avatar) */}
-      <div className="hidden md:flex gap-3 items-center">
-        <div className="h-10 w-10 rounded-full overflow-hidden">
-          <img
-            className="w-full h-full object-cover"
-            src={avatar}
-            alt="User Avatar"
-          />
-        </div>
-      </div>
-    </nav>
+    </div>
   );
 };
 
-export default Header;
+export default SearchMobile;

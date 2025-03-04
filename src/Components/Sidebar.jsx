@@ -7,7 +7,7 @@ const Sidebar = ({ category, setCategory }) => {
   if (!isMenuOpen) return null;
 
   return (
-    <div className="hidden lg:flex py-1 md:w-[15%] h-full">
+    <div className="hidden lg:flex px-5 py-1 md:w-[15%] h-full">
       <div className="flex w-[80%] flex-col gap-4">
         {links.map(({ id, icon: Icon, videoId, title }) => (
           <div

@@ -30,7 +30,7 @@ const VideoContainer = ({ category }) => {
     <div
       className={`${
         isMenuOpen ? "lg:w-[85%] ] " : "w-full"
-      } scroll h-full overflow-y-auto  `}
+      } scroll h-full px-5 overflow-y-auto  `}
     >
       <div className="mb-4 ">
         <div className="grid grids ">

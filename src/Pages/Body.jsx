@@ -5,7 +5,7 @@ import VideoContainer from "./VideoContainer";
 const Body = () => {
   const [category, setCategory] = useState("0");
   return (
-    <div className="flex px-5 pt-6 h-screen ">
+    <div className="flex  pt-6 h-screen w-full ">
       <Sidebar category={category} setCategory={setCategory} />
       <VideoContainer category={category} setCategory={setCategory} />
     </div>
