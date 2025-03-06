@@ -36,6 +36,8 @@ const Search = () => {
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
+  console.log(searchResult);
+
   return (
     <>
       {searchResult && searchResult.length > 0 ? (
@@ -48,7 +50,7 @@ const Search = () => {
           </Link>
         ))
       ) : (
-        <p>Loading...</p>
+        <p>Not Found</p>
       )}
     </>
   );
