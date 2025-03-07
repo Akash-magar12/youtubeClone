@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { videoRemoveResult, videoSearchResult } from "../reducers/VideoSlice";
 import SearchCards from "../Components/SearchCards";
 import { Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 const Search = () => {
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
@@ -50,7 +51,9 @@ const Search = () => {
           </Link>
         ))
       ) : (
-        <p>Not Found</p>
+        <div className="w-full h-[70vh] flex justify-center items-center ">
+          <ClipLoader  size={50}/>
+        </div>
       )}
     </>
   );
